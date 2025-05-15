@@ -227,8 +227,9 @@ int main(int argc, char *argv[])
 
   if (do_save) {
     if (do_save_seed) {
-       /* 10 bytes for number, plus dot, extention and null terminator. */
-      save_file = (char *) malloc(18);
+      /* Dynamically allocate save_file memory to prevent buffer overflow*/
+      int len = snprintf(NULL, 0, "%ld.rlg327", seed) + 1;
+      save_file = (char *) malloc(len);
       sprintf(save_file, "%ld.rlg327", seed);
     }
     if (do_save_image) {
