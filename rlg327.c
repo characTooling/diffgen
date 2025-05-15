@@ -179,6 +179,18 @@ int main(int argc, char *argv[])
             /* There is another argument, and it's not a switch, so *
              * we'll treat it as a save file and try to load it.    */
             pgm_file = argv[++i];
+            char* dot = strrchr(pgm_file, '.');
+            if (!dot) {
+                fprintf(stderr, "Error: Image file '%s' has no extension. Please provide a .pgm file.\n", pgm_file);
+                usage(argv[0]);
+            }
+            else {
+                /* Check if extension is .pgm */
+                if (strcmp(dot, ".pgm") != 0) {
+                    fprintf(stderr, "Error: Image file must have .pgm extension, got '%s'.\n", pgm_file);
+                    usage(argv[0]);
+                }
+            }
           }
           break;
         default:
